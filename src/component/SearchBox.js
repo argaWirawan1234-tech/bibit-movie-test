@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import {setSearchString} from '../store/common/actions'
 import {getSearchedMovie, autocomplete} from '../store/movie/actions'
 import MovieContext from '../context/MovieContext'
-function SearchBox({setScrollToTop}) {
+function SearchBox({setScrollToTop, setLoadingSearchResult}) {
     const dispatch = useDispatch()
     const [searchValue, setSearchValue] = useState('')
     const [autoCompleteList, setaAutoCompleteList] = useState([])
@@ -25,11 +25,13 @@ function SearchBox({setScrollToTop}) {
     }, [searchValue])
 
     function handleSubmit(val){
-        setScrollToTop(true)
         dispatch(setSearchString(val))
+        setLoadingSearchResult(true)
         setTimeout(()=> {
+            setScrollToTop(true)
+            setLoadingSearchResult(false)
             dispatch(getSearchedMovie({s: val, page: 1}))
-        }, 2000)
+        }, 1000)
     }
 
     return (
@@ -55,7 +57,8 @@ function SearchBox({setScrollToTop}) {
 }
 
 SearchBox.propTypes = {
-    setScrollToTop: PropTypes.func
+    setScrollToTop: PropTypes.func,
+    setLoadingSearchResult: PropTypes.func
 }
 
 export default memo(SearchBox)

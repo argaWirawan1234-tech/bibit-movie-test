@@ -19,6 +19,7 @@ function Home(){
     const {common, movie} = useSelector((state) => state)
 
     const [loading, setLoading] = useState(false)
+    const [loadingSearchResult, setLoadingSearchResult] = useState(false)
     const [scrollTop, setScrollTop] = useState(0)
     const [scrollToTop, setScrollToTop] = useState(false)
     const [img, setImg] = useState(null)
@@ -77,15 +78,18 @@ function Home(){
             <div className={img ? 'shadow-wrapper-active' : 'shadow-wrapper'} onClick={() => setImg(null)}>
                 <img src={img} style={{width: '50%'}}></img>
             </div>
-            <SearchBox page={page} setScrollToTop={setScrollToTop} />
-            <div className="App-body">
-                {movie.movieList.length > 0 ? movie.movieList.map((el, index) => {
-                    return(
-                        <Card data={el} key={index} setImg={setImg} />
-                    )
-                }) : <p style={{fontSize: '16px', fontWeight: 'bolder'}}>Not Found</p>}
+            <SearchBox page={page} setScrollToTop={setScrollToTop} setLoadingSearchResult={setLoadingSearchResult} />
+            {loadingSearchResult ? <Loading /> : <div className="App-body">
+                {
+                    movie.movieList.length > 0 ?
+                    movie.movieList.map((el, index) => {
+                        return(
+                            <Card data={el} key={index} setImg={setImg} />
+                        )
+                    }) : <p style={{fontSize: '16px', fontWeight: 'bolder'}}>Not Found</p>
+                }
                 {loading ? <Loading /> : null}
-            </div>
+            </div>}
             </div>
         </MovieContext.Provider>
     )

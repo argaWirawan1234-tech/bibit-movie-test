@@ -1,7 +1,7 @@
 import React, {memo, useMemo} from 'react'
 import { useSelector } from 'react-redux'
 
-function getPropery(obj){
+function getProperty(obj){
     let arr = []
     Object.keys(obj).forEach((el) => {
         arr.push(el)
@@ -11,7 +11,7 @@ function getPropery(obj){
 }
 function Detail() {
     const {movieDetail} = useSelector((state) => state.movie)
-    const detail = useMemo(() => getPropery(movieDetail), [movieDetail])
+    const detail = useMemo(() => getProperty(movieDetail), [movieDetail])
     return (
         <div className="detail-wrapper">
           <div className="detail-box">
