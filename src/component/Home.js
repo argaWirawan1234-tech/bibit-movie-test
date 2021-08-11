@@ -39,7 +39,7 @@ function Home(){
 
     useEffect(() => {
         if(common.searchString) {
-            page = 1
+            page.current = 1
         }
     }, [common])
 
@@ -55,12 +55,8 @@ function Home(){
 
     useEffect(() => {
         var listWrapper = wrapper.current
-        
         function handleScroll(){
           setScrollTop(listWrapper.scrollTop)
-          console.log(listWrapper.scrollHeight, 'listWrapper.scrollHeight')
-          console.log(listWrapper.clientHeight, 'listWrapper.clientHeight')
-          console.log(listWrapper.scrollTop, 'listWrapper.scrollTop')
           if(Math.ceil(listWrapper.clientHeight + listWrapper.scrollTop) >= listWrapper.scrollHeight){
             if((page.current < Math.ceil(movie.movieCount/10))){
                 page.current +=1
@@ -73,7 +69,7 @@ function Home(){
         return () => {
           listWrapper.removeEventListener("scroll", handleScroll);
         }
-    }, [scrollTop])
+    }, [scrollTop, page])
 
     return (
         <MovieContext.Provider value={{goToMovieDetail}}>

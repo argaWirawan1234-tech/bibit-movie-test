@@ -12,7 +12,6 @@ function getPropery(obj){
 function Detail() {
     const {movieDetail} = useSelector((state) => state.movie)
     const detail = useMemo(() => getPropery(movieDetail), [movieDetail])
-    console.log(detail)
     return (
         <div className="detail-wrapper">
           <div className="detail-box">

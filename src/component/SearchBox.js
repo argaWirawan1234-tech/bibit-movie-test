@@ -25,9 +25,11 @@ function SearchBox({setScrollToTop}) {
     }, [searchValue])
 
     function handleSubmit(val){
-        //setScrollToTop(true)
-        dispatch(getSearchedMovie({s: val, page: 1}))
+        setScrollToTop(true)
         dispatch(setSearchString(val))
+        setTimeout(()=> {
+            dispatch(getSearchedMovie({s: val, page: 1}))
+        }, 2000)
     }
 
     return (
