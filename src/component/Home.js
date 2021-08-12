@@ -24,7 +24,6 @@ function Home(){
     const [scrollToTop, setScrollToTop] = useState(false)
     const [img, setImg] = useState(null)
 
-    // list pertama ditampilkan
     async function fetchData(currentPage){
         setLoading(true)
         await dispatch(getMovie({s: common.searchString, page: currentPage}))
@@ -40,10 +39,11 @@ function Home(){
 
     useEffect(() => {
         if(common.searchString) {
-            page.current = 1
+            page.current = 0
         }
     }, [common])
 
+      // list pertama ditampilkan
     useEffect(() => {
         fetchData(page)
     }, [])
