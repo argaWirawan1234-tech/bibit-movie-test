@@ -39,7 +39,7 @@ function Home(){
 
     useEffect(() => {
         if(common.searchString) {
-            page.current = 0
+            page.current = 1
         }
     }, [common])
 
